@@ -94,8 +94,10 @@ class Ethna_Subscriber_TriggerSubscriber
             $action_name = $controller->_getActionName($event->getDefaultActionName(), $event->getFallbackActionName());
             $action_obj = $controller->_getAction($action_name);
 
-            if (Ethna::isError($error = $controller->verifyActionObject($action_obj, $action_name, $event->getFallbackActionName()))) {
-                $event->setResult($error);
+            try {
+                $controller->verifyActionObject($action_obj, $action_name, $event->getFallbackActionName());
+            } catch (Ethna_Exception $e) {
+                $event->setResult($e);
                 $event->stopPropagation();
                 return;
             }
