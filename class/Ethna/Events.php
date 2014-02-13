@@ -20,5 +20,7 @@ class Ethna_Events
 
     const CONTROLLER_FORWARD = "ethna.controller.forward";
 
+    const ACTIONFORM_SETVARS = "ethna.actionform.setvars";
+
     private function __construct(){}
 }

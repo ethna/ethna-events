@@ -30,6 +30,11 @@ class Ethna_Subscriber_ResolveActionNameSubscriber
     {
         $controller = $event->getController();
         if (isset($_SERVER['REQUEST_METHOD']) == false) {
+            if (PHP_SAPI == "cli" && $event->getDefaultActionName()) {
+                $event->setActionName($event->getDefaultActionName());
+                return;
+            }
+
             return null;
         }
 
