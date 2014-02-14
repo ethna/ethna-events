@@ -161,7 +161,11 @@ class Ethna_Subscriber_TriggerSubscriber
     {
         $action_form = $event->getActionForm();
         if ($action_form->getBackend()->getController()->getGateway() == GATEWAY_CLI) {
-            // TODO(chobie): よしなに引数解析して渡したいけど面倒臭いなー
+            foreach($action_form->getDef() as $key => $def) {
+                if (isset($_REQUEST[$key])) {
+                    $action_form->set($key, $_REQUEST[$key]);
+                }
+            }
         }
     }
 
